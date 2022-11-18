@@ -40,3 +40,7 @@ jobs:
           role-duration-seconds: 1200
       - name: List S3 Buckets
         run: aws s3 ls
+      - name: List Lambda Functions
+        run: aws lambda list-functions
+      - name: CDK Version
+        run: cdk --version
