@@ -1,0 +1,41 @@
+name: Deploy CDK
+
+on:
+  workflow_dispatch:
+    inputs:
+      xskRepository:
+        description: XSK Repository
+        required: true
+        type: choice
+        options: 
+        - 'dirigiblelabs/xsk-kyma'
+        - 'dirigiblelabs/xsk-kyma-runtime-distro' 
+        - 'dirigiblelabs/xsk-cf'
+        - 'dirigiblelabs/xsk'
+      xskVersion:
+        description: XSK Version
+        required: true
+        default: 'latest'
+      applicationRepository:
+        description: Application Repository
+        required: true
+        default: '<your-organization>/<your-repository>'
+      applicationReleaseVersion:
+        description: Application Release Version
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      publishPackageInRepository: false
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+      - name: List S3 Buckets
+        run: aws s3 ls
