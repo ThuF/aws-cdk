@@ -49,5 +49,7 @@ jobs:
         run: aws s3 ls
       - name: List Lambda Functions
         run: aws lambda list-functions
+      - name: List DynamoDB Tables
+        run: aws dynamodb list-tables
       - name: CDK Version
         run: cdk --version
