@@ -15,7 +15,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ inputs.environment }}
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
