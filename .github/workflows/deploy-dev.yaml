@@ -11,3 +11,4 @@ jobs:
     uses: ./.github/workflows/deploy-generic.yaml
     with:
       environment: dev
+    secrets: inherit
