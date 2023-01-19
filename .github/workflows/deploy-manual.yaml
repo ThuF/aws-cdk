@@ -1,4 +1,4 @@
-name: Deploy CDK
+name: Deploy Manual
 
 permissions:
   id-token: write
