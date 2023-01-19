@@ -3,7 +3,7 @@ name: Deploy - Staging
 on: workflow_dispatch
 
 jobs:
-  dev:
+  staging:
     uses: ./.github/workflows/deploy-generic.yaml
     with:
       environment: staging
