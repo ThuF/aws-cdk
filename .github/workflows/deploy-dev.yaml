@@ -2,13 +2,8 @@ name: Deploy - Dev
 
 on: workflow_dispatch
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   dev:
     uses: ./.github/workflows/deploy-generic.yaml
     with:
       environment: dev
-    secrets: inherit
