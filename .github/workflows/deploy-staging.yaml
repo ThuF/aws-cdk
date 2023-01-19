@@ -1,0 +1,10 @@
+name: Deploy - Staging
+
+on: workflow_dispatch
+
+jobs:
+  dev:
+    uses: ./.github/workflows/deploy-generic.yaml
+    with:
+      environment: staging
+    secrets: inherit
