@@ -1,0 +1,10 @@
+name: Deploy - Prod
+
+on: workflow_dispatch
+
+jobs:
+  prod:
+    uses: ./.github/workflows/deploy-generic.yaml
+    with:
+      environment: prod
+    secrets: inherit
