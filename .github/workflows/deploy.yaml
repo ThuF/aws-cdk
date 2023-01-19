@@ -1,0 +1,32 @@
+name: Deploy
+
+permissions:
+  id-token: write
+  contents: read
+
+on:
+  workflow_call:
+    inputs:
+      awsCommand:
+        required: true
+        type: string
+    secrets:
+      awsCommand2:
+        required: true
+      roleToAssume:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: eu-central-1
+          role-to-assume: ${{ secrets.roleToAssume }}
+          role-session-name: SessionRole
+      - name: AWS Command
+        run: aws ${{ inputs.awsCommand }}
+      - name: AWS Command 2
+        run: aws ${{ secrets.awsCommand2 }}
