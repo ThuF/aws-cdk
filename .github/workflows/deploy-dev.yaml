@@ -1,0 +1,12 @@
+name: Deploy - Dev
+
+on: workflow_dispatch
+
+jobs:
+  call-deploy-dev:
+    uses: ./.github/workflows/deploy-generic.yaml
+    with:
+      awsCommand: s3 ls
+    secrets:
+      roleToAssume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+      awsCommand2: ${{ secrets.AWS_COMMAND }}
