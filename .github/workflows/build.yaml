@@ -74,7 +74,8 @@ jobs:
       - step2
       - step3
     steps:
-    - uses: geekyeggo/delete-artifact@v2
-      with:
-          name: releng-folder
-          failOnError: false
+    - run: echo Do nothing
+#     - uses: geekyeggo/delete-artifact@v2
+#       with:
+#           name: releng-folder
+#           failOnError: false
