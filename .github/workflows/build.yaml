@@ -22,13 +22,15 @@ jobs:
     - run: |
         mkdir -p releng/server-all/target
         cd releng/server-all/target
-        echo "Test1234" >> test.txt
+        echo "File 1" >> file1.txt
+        echo "File 2" >> file2.txt
         cd ../../..
     - run: cat releng/server-all/target/test.txt
     - uses: actions/upload-artifact@v3
       with:
         name: releng-folder
         path: releng/
+
   step1:
     runs-on: ubuntu-latest
     needs: build
@@ -37,16 +39,38 @@ jobs:
       with:
         name: releng-folder
         path: releng
-    - run: |
-        ls -R
-        cat releng/server-all/target/test.txt
+    - run: cat releng/server-all/target/file1.txt
+
+  step2:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: releng-folder
+        path: releng
+    - run: cat releng/server-all/target/file2.txt
+
+  step3:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: releng-folder
+        path: releng
+    - run: cat releng/server-all/target/file3.txt
+
   clean-up:
     runs-on: ubuntu-latest
     if: ${{ always() }}
     needs: 
       - build
       - step1
+      - step2
+      - step3
     steps:
     - uses: geekyeggo/delete-artifact@v2
       with:
           name: releng-folder
+          failOnError: false
