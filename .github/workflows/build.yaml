@@ -19,10 +19,32 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - run: echo "Test1234" >> test.txt
-    - run: cat test.txt
+    - run: |
+        mkdir -p releng/server-all/target
+        cd releng/server-all/target
+        echo "Test1234" >> test.txt
+        cd ../../..
+    - run: cat releng/server-all/target/test.txt
+    - uses: actions/upload-artifact@v3
+      with:
+        name: releng-folder
+        path: releng/
   step1:
     runs-on: ubuntu-latest
     needs: build
     steps:
-    - run: cat test.txt
+    - uses: actions/download-artifact@v3
+      with:
+        name: releng-folder
+    - run: cat releng/server-all/target/test.txt
+
+  clean-up:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs: 
+      - build
+      - step1
+    steps:
+    - uses: geekyeggo/delete-artifact@v2
+      with:
+          name: releng-folder
