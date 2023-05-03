@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: Echo
         run: |
-          echo ENV1: ${{ secrets.ENV_1 }}
-          echo ENV1: ${{ env.ENV_1 }}
+          echo ENV1 Secret: ${{ secrets.ENV_1 }}
+          echo ENV1 Environment: ${{ vars.ENV_1 }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
